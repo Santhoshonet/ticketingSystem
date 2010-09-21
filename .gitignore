@@ -1,0 +1,11 @@
+log/*.log
+tmp/**/*
+doc/api
+doc/app
+db/*.sqlite3
+attachments
+config/database.yml
+*.swp
+*~
+.DS_Store
+.idea
