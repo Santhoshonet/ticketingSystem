@@ -7,7 +7,6 @@ class EmailIntegrationController < ApplicationController
 
      begin
 
-        puts "reading mail at " + Time.now.min.to_s
         
         username = "santhosh@itxsolutionsindia.com"
         password = "password@123"
@@ -15,6 +14,8 @@ class EmailIntegrationController < ApplicationController
         require "gmail"
         
         gmail = Gmail.new(username,password)
+
+        puts "reading mail at " + Time.now.min.to_s
 
         gmail.inbox.emails(:unread).each do |mails|
 
