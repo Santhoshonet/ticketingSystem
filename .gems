@@ -1,3 +1,4 @@
 tmail --version 1.2.7.1
 ruby-gmail --version 0.2.1
 mime-types --version 1.16
+mail --version 2.2.5
