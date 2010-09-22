@@ -5,7 +5,7 @@ class EmailIntegrationController < ApplicationController
   def read
 
 
-     begin
+     #begin
 
         
         username = "santhosh@itxsolutionsindia.com"
@@ -55,11 +55,11 @@ class EmailIntegrationController < ApplicationController
 
         gmail.logout
 
-      rescue Exception => ex
-        puts "error while saving ticket from support@itxsolutionsindia.com doe to " + ex.message
-      ensure
+      #rescue Exception => ex
+      #  puts "error while saving ticket from support@itxsolutionsindia.com doe to " + ex.message
+      #ensure
          #sleep(300)
-      end
+      #end
 
 
   end
