@@ -53,6 +53,7 @@ task :cron => :environment do
 
       rescue Exception => ex
         puts "error while saving ticket from support@itxsolutionsindia.com doe to " + ex.message
+        break
       ensure
          sleep(300)
       end
