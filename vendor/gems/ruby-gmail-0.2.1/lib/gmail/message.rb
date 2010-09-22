@@ -83,8 +83,6 @@ class Gmail
       move_to('[Gmail]/All Mail')
     end
 
-    private
-
     # Parsed MIME message object
     def message
       require 'mail'
