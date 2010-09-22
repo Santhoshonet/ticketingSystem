@@ -8,6 +8,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect 'tickets/set_tickets_per_page/:per_page', :controller => 'tickets', :action => 'set_tickets_per_page'
 
+  map.connect "emailintegration", :controller =>"email_integration", :action => "read"
+
   map.connect 'attachments/:ticket_id/:id', :controller => 'attachments', :action => 'show', :conditions => { :method => :get }
 
   map.resources :dashboard, :only => :index

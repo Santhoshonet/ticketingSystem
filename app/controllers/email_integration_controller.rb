@@ -1,3 +1,5 @@
+require "gmail"
+
 class EmailIntegrationController < ApplicationController
 
   def read
@@ -5,6 +7,8 @@ class EmailIntegrationController < ApplicationController
 
      begin
 
+        puts "reading mail at " + Time.now.min.to_s
+        
         username = "santhosh@itxsolutionsindia.com"
         password = "password@123"
 
@@ -17,9 +21,13 @@ class EmailIntegrationController < ApplicationController
 
           ml = TMail::Mail.parse(mail)
 
-          tickets = Ticket.find(:all,:conditions => "subject = #{ml.subject}")
+          tickets = Ticket.find(:all,:conditions => "title = '#{ml.subject}'")
+
+          puts "no of tickets :" + tickets.count.to_s 
 
           if tickets.empty? || tickets.count == 0
+
+              puts "found a ticket"
 
               ticket = Ticket.new
 
@@ -32,10 +40,12 @@ class EmailIntegrationController < ApplicationController
 
               ticket.save
 
+              puts "saved a ticket"
+
           end
 
 
-          mail.mark(:read)
+          mails.mark(:read)
 
 
         end
@@ -45,7 +55,7 @@ class EmailIntegrationController < ApplicationController
       rescue Exception => ex
         puts "error while saving ticket from support@itxsolutionsindia.com doe to " + ex.message
       ensure
-         sleep(300)
+         #sleep(300)
       end
 
 

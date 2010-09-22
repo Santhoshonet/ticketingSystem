@@ -1,10 +1,12 @@
 
+require "gmail"
+
 task :cron => :environment do
 
 
   while(true)
 
-    if Time.now.hour == 11 && Time.now.minute >= 50
+    if Time.now.hour == 11 && Time.now.min >= 50
 
       break;
 
@@ -24,7 +26,7 @@ task :cron => :environment do
 
           ml = TMail::Mail.parse(mail)
 
-          tickets = Ticket.find(:all,:conditions => "subject = #{ml.subject}")
+          tickets = Ticket.find(:all,:conditions => "title = '#{ml.subject}'")
 
           if tickets.empty? || tickets.count == 0
 
@@ -42,7 +44,7 @@ task :cron => :environment do
           end
 
 
-          mail.mark(:read)
+          mails.mark(:read)
 
 
         end
