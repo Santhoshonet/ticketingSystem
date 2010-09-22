@@ -1,4 +1,4 @@
-#require "gmail"
+require "gmail"
 
 class EmailIntegrationController < ApplicationController
 
@@ -12,6 +12,8 @@ class EmailIntegrationController < ApplicationController
         username = "santhosh@itxsolutionsindia.com"
         password = "password@123"
 
+        require "gmail"
+        
         gmail = Gmail.new(username,password)
 
         gmail.inbox.emails(:unread).each do |mails|
