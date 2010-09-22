@@ -1,4 +1,4 @@
-require "gmail"
+#require "gmail"
 
 class EmailIntegrationController < ApplicationController
 
