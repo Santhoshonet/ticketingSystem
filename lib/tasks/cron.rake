@@ -1,18 +1,20 @@
 
 #require "gmail"
 
+desc "cron job for email integration"
+
 task :cron => :environment do
 
 
   while(true)
 
-    if Time.now.hour == 11 && Time.now.min >= 50
+    if Time.now.hour == 12 && Time.now.min < 0
 
       break;
 
     else
 
-      begin
+      #begin
 
         username = "santhosh@itxsolutionsindia.com"
         password = "password@123"
@@ -51,12 +53,12 @@ task :cron => :environment do
 
         gmail.logout
 
-      rescue Exception => ex
-        puts "error while saving ticket from support@itxsolutionsindia.com doe to " + ex.message
-        break
-      ensure
-         sleep(300)
-      end
+      #rescue Exception => ex
+      #  puts "error while saving ticket from support@itxsolutionsindia.com doe to " + ex.message
+      #  break
+      #ensure
+        sleep(300)
+      #end
       
     end
 

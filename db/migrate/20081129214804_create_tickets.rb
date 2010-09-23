@@ -11,6 +11,7 @@ class CreateTickets < ActiveRecord::Migration
       t.integer :owned_by
       t.datetime :closed_at
       t.integer :comments_count, :default => 0 #counter cache field
+      t.string :mailrefid
       t.timestamps
     end
 

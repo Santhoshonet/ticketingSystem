@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(:version => 20090914141258) do
     t.integer  "owned_by"
     t.datetime "closed_at"
     t.integer  "comments_count", :default => 0
+    t.string   "mailrefid"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

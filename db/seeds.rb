@@ -37,6 +37,18 @@ user_attrs = {
 }
 User.create(user_attrs)
 
+
+contact_attrs = {
+  :first_name => "ITX solutions",
+  :last_name => "support",
+  :email => "support@itxsolutionsindia.com",
+  :mobile_phone => "+91 9962156705",
+  :office_phone => "+91 044 64998328",
+  :notes => "drop a mail to support@itxsolutionsindia.com to create a support ticket."
+}
+
+Contact.create(contact_attrs)
+
 # allow admin to have admin rights
 admin = User.find(1)
 admin.admin = true
