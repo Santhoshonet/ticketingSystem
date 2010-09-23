@@ -1,5 +1,5 @@
 
-#require "gmail"
+require "gmail"
 
 desc "cron job for email integration"
 
