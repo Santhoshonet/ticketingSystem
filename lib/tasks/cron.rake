@@ -1,7 +1,7 @@
 
 require "gmail"
-
-desc "cron job for email integration"
+require "mime"
+require "mime/message"
 
 task :cron => :environment do
 
