@@ -16,7 +16,7 @@ class EmailIntegrationController < ApplicationController
 
         gmail.inbox.emails(:unread).each do |mails|
 
-         
+          
           mail =  mails.message
 
           ml = TMail::Mail.parse(mail)
