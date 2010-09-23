@@ -19,6 +19,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.save
         flash[:success] = 'Your comment was successfully added!'
+         Usermailer.deliver_newcommentalert(comment)
         format.html { redirect_to(@ticket) }
         format.xml { render :xml => @comment, :status => :created, :location => @comment }
       else

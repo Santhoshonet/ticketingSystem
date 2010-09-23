@@ -62,3 +62,14 @@ Rails::Initializer.run do |config|
   # Define subdirectory root
   # config.action_controller.relative_url_root = '/myapp'
 end
+
+ ActionMailer::Base.smtp_settings = {
+         :address => 'smtp.gmail.com',
+         :port => '587',
+         :user_name => 'support@itxsolutionsindia.com',
+         :password => 'password@123',
+         :authentication => :login,
+         :enable_starttls_auto => true,
+         :smtp => true
+        # :plain, :login or :cram_md5   
+  }

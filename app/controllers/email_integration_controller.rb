@@ -27,20 +27,35 @@ class EmailIntegrationController < ApplicationController
 
               newuser = User.new
 
-              sender = User.find(:all,:conditions => "email = '#{ml.from}'")
+              sender = User.find(:all,:conditions => "email = '#{ml.from[0].to_s}'")
 
               if sender.count == 0
 
-                  newuser.username = ml.from
-                  newuser.password = "password"
-                  newuser.password_confirmation = "password"
-                  newuser.email = ml.from
-                  newuser.email_confirmation = ml.from
-                  newuser.first_name = ml.from
-                  newuser.last_name = ml.from
-                  newuser.time_zone= "(GMT+05:30) Chennai"
+                  newuser = User.new({
+                    :username => "username23",
+                    :password => 'support@itx',
+                    :password_confirmation => 'support@itx',
+                    :email => ml.from[0].to_s,
+                    :email_confirmation => ml.from[0].to_s,
+                    :first_name => ml.from[0].to_s,
+                    :last_name => ml.from[0].to_s
+                  })
 
-                  newuser.save
+                  index = 0
+                  while !newuser.valid?
+                    index += 1
+                    newuser.username = "user" + rand(10000).to_s
+                    if index >= 100
+                      unless newuser.valid?
+                        newuser.errors.each {|k, v| puts "#{k.capitalize}: #{v}"}
+                      end
+                      break;
+                    end
+                 end
+
+                 newuser.save
+
+                Usermailer.deliver_accountcreation(newuser)
 
               else
 
@@ -58,31 +73,58 @@ class EmailIntegrationController < ApplicationController
               ticket.created_by = newuser
               ticket.mailrefid = ml.message_id
 
-              ticket.save
+              if ticket.valid?
+
+                  ticket.save
+                  
+                  Usermailer.deliver_newticketautoresponse(newuser,ticket)
+
+              else
+
+                  ticket.errors.each {|k,v| puts "#{k.capitalize}: #{v}" }
+                
+              end
+
 
           else
 
-             sender = User.find(:all,:conditions => "email = '#{ml.from}'")
+             sender = User.find(:all,:conditions => "email = '#{ml.from[0].to_s}'")
 
-              newuser = User.new
+             newuser = User.new
               
-              if sender.count == 0
+             if sender.count == 0
 
-               newuser = User.new({
-                  :username => "yourname",
-                  :password => 'welcome',
-                  :password_confirmation => 'welcome',
-                  :email => "santhosh@gmail.com",
-                  :email_confirmation => "santhosh@gmail.com",
-                  :first_name => "santhosh",
-                  :last_name => "santhosh"
+                newuser = User.new({
+                  :username => "username23",
+                  :password => 'support@itx',
+                  :password_confirmation => 'support@itx',
+                  :email => ml.from[0].to_s,
+                  :email_confirmation => ml.from[0].to_s,
+                  :first_name => ml.from[0].to_s,
+                  :last_name => ml.from[0].to_s
                 })
 
-               puts newuser.save
+                index = 0
+                while !newuser.valid?
+                  index += 1
+                  newuser.username = "user" + rand(10000).to_s
+                  if index >= 100
+                    unless newuser.valid?
+                      newuser.errors.each {|k, v| puts "#{k.capitalize}: #{v}"}
+                    end  
+                    break;
+                  end
+                end
 
-               puts "user created"
-                
-              end
+                newuser.save
+
+                Usermailer.deliver_accountcreation(newuser)
+
+             else
+
+               newuser = sender[0]
+               
+             end
 
               tickets.each do |tkt|
 
@@ -93,8 +135,19 @@ class EmailIntegrationController < ApplicationController
                   comment.ticket = tkt
 
                   comment.user = newuser
-                  
-                  comment.save
+
+                  if comment.valid?
+
+                      comment.save
+
+                      Usermailer.deliver_newcommentalert(comment)
+
+                  else
+
+                      comment.errors.each {|k,v| puts "#{k.capitalize}: #{v}"}
+
+                  end
+
 
               end
 
